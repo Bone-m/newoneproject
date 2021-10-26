@@ -2,7 +2,7 @@
 function get_categories($link)
 {
     $sql = "SELECT * FROM testname";
-    $result = mysqli_info($link, $sql);
+    $result = mysqli_query($link, $sql);
     echo '<pre>';
     var_dump($result);
     echo '</pre>';
