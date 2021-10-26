@@ -1,10 +1,10 @@
 <?php
-function get_categories($mysql)
+function get_categories($link)
 {
-    $sql = "SELECT * FROM `testname`";
-    $result = mysqli_info($mysql, $sql);
+    $sql = "SELECT * FROM testname";
+    $result = mysqli_info($link, $sql);
     echo '<pre>';
     var_dump($result);
     echo '</pre>';
 }
-get_categories($mysql);
+$categories = get_categories($link);
