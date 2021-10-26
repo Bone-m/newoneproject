@@ -1,10 +1,10 @@
 <?php
 
-$link = mysqli_connect('localhost', 'root', '', 'test');
-if (mysqli_connect_errno()) {
-    echo 'Ошибка подключения к БД (' . mysqli_connect_errno() . '(:' . mysqli_connect_error();
-    exit();
-}
+// $link = mysqli_connect('localhost', 'root', '', 'test');
+// if (mysqli_connect_errno()) {
+//     echo 'Ошибка подключения к БД (' . mysqli_connect_errno() . '(:' . mysqli_connect_error();
+//     exit();
+// }
 
 
 // define('DB_HOST', 'localhost');
@@ -16,3 +16,40 @@ if (mysqli_connect_errno()) {
 // if ($mysql->connect_errno) exit('Ошибка подключения к БД');
 // $mysql->set_charset('utf8');
 // $mysql->close();
+
+
+//--
+if (isset($_POST['name']) && isset($_POST['text'])) {
+    // Переменные с формы
+    $name = $_POST['name'];
+    $text = $_POST['text'];
+
+    // Параметры для подключения
+    $db_host = "localhost";
+    $db_user = "root"; // Логин БД
+    $db_password = ""; // Пароль БД
+    $db_base = 'test'; // Имя БД
+    $db_table = "forma"; // Имя Таблицы БД
+
+    try {
+        // Подключение к базе данных
+        $db = new PDO("mysql:host=$db_host;dbname=$db_base", $db_user, $db_password);
+        // Устанавливаем корректную кодировку
+        $db->exec("set names utf8");
+        // Собираем данные для запроса
+        $data = array('name' => $name, 'text' => $text);
+        // Подготавливаем SQL-запрос
+        $query = $db->prepare("INSERT INTO $db_table (name, text) values (:name, :text)");
+        // Выполняем запрос с данными
+        $query->execute($data);
+        // Запишим в переменую, что запрос отрабтал
+        $result = true;
+    } catch (PDOException $e) {
+        // Если есть ошибка соединения или выполнения запроса, выводим её
+        print "Ошибка!: " . $e->getMessage() . "<br/>";
+    }
+
+    if ($result) {
+        echo "Успех. Информация занесена в базу данных";
+    }
+}
