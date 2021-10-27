@@ -20,8 +20,14 @@ require_once 'include/functions.php';
 
 <body>
     <form method="POST" action="">
-        <input name="name" type="text" placeholder="Имя" />
-        <input name="text" type="text" placeholder="Текст" />
+        <pre><input name="name" type="name" placeholder="Имя" /></pre>
+
+        <pre><input name="patronymic" type="patronymic" placeholder="Отчество" /></pre>
+        <pre><input name="phone" type="phone" placeholder="Номер телефона для связи" /></pre>
+        <pre><input name="email" type="email" placeholder="Введите email" /></pre>
+        <pre><input name="text" type="text" placeholder="Пожелания к товарам" /></pre>
+
+
         <input type="submit" value="Отправить" />
         <?php
 

@@ -19,10 +19,16 @@
 
 
 //--
-if (isset($_POST['name']) && isset($_POST['text'])) {
+if (isset($_POST['name']) && isset($_POST['patronymic']) && isset($_POST['email']) && isset($_POST['phone'])  && isset($_POST['text'])) {
+    // 
     // Переменные с формы
     $name = $_POST['name'];
+    $patronymic = $_POST['patronymic'];
+    $phone = $_POST['phone'];
+    $email = $_POST['email'];
     $text = $_POST['text'];
+
+
 
     // Параметры для подключения
     $db_host = "localhost";
@@ -37,9 +43,9 @@ if (isset($_POST['name']) && isset($_POST['text'])) {
         // Устанавливаем корректную кодировку
         $db->exec("set names utf8");
         // Собираем данные для запроса
-        $data = array('name' => $name, 'text' => $text);
+        $data = array('name' => $name, 'patronymic' => $patronymic, 'email' => $email, 'phone' => $phone, 'text' => $text);
         // Подготавливаем SQL-запрос
-        $query = $db->prepare("INSERT INTO $db_table (name, text) values (:name, :text)");
+        $query = $db->prepare("INSERT INTO $db_table (name, patronymic, email, phone, text) values (:name, :patronymic, :email, :phone,  :text)");
         // Выполняем запрос с данными
         $query->execute($data);
         // Запишим в переменую, что запрос отрабтал
